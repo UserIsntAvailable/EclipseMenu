@@ -266,7 +266,7 @@ namespace eclipse::utils {
             m_unkUint10 = playLayer->m_gameState.m_unkUint10;
             m_unkUint11 = playLayer->m_gameState.m_unkUint11;
             m_unkUint12 = playLayer->m_gameState.m_unkUint12;
-            m_unkPoint31 = playLayer->m_gameState.m_unkPoint31;
+            // m_unkPoint31 = playLayer->m_gameState.m_unkPoint31;
             m_unkFloat10 = playLayer->m_gameState.m_unkFloat10;
             m_timeModRelated = playLayer->m_gameState.m_timeModRelated;
             m_timeModRelated2 = playLayer->m_gameState.m_timeModRelated2;
@@ -692,7 +692,7 @@ namespace eclipse::utils {
             playLayer->m_gameState.m_unkUint10 = m_unkUint10;
             playLayer->m_gameState.m_unkUint11 = m_unkUint11;
             playLayer->m_gameState.m_unkUint12 = m_unkUint12;
-            playLayer->m_gameState.m_unkPoint31 = m_unkPoint31;
+            // playLayer->m_gameState.m_unkPoint31 = m_unkPoint31;
             playLayer->m_gameState.m_unkFloat10 = m_unkFloat10;
             playLayer->m_gameState.m_timeModRelated = m_timeModRelated;
             playLayer->m_gameState.m_timeModRelated2 = m_timeModRelated2;
