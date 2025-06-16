@@ -19,6 +19,7 @@ namespace eclipse::hacks::Level {
         void init() override {
             config::setIfEmpty("level.startpos_switcher", false);
             config::setIfEmpty("level.startpos_switcher.reset_camera", false);
+            config::setIfEmpty("level.startpos_switcher.switch_on_death", false);
             config::setIfEmpty("level.startpos_switcher.previous", keybinds::Keys::Q);
             config::setIfEmpty("level.startpos_switcher.next", keybinds::Keys::E);
             config::setIfEmpty("level.startpos_switcher.label", true);
@@ -37,6 +38,7 @@ namespace eclipse::hacks::Level {
                    options->addKeybind("level.startpos_switcher.next", "level.startpos_switcher.next")
                           ->setInternal()->setDefaultKey(keybinds::Keys::E);
                    options->addToggle("level.startpos_switcher.reset_camera");
+                   options->addToggle("level.startpos_switcher.switch_on_death");
                    options->addToggle("level.startpos_switcher.label")
                           ->addOptions([](std::shared_ptr<gui::MenuTab> options) {
                               options->addInputFloat("label.startpos_switcher.scale", 0.1f, 2.f, "%.2fx");
@@ -73,6 +75,14 @@ namespace eclipse::hacks::Level {
                 index = count - 1;
 
             currentStartPosIndex = index;
+
+            if (config::get<bool>("level.startpos_switcher.switch_on_death", false)) return;
+
+            setupStartPos(playLayer);
+        }
+
+        static void setupStartPos(PlayLayer* playLayer) {
+            auto index = currentStartPosIndex;
             playLayer->m_currentCheckpoint = nullptr;
 
             auto* startPos = index >= 0 ? startPosObjects[index] : nullptr;
@@ -225,6 +235,9 @@ namespace eclipse::hacks::Level {
 
         void resetLevel() {
             PlayLayer::resetLevel();
+
+            if (config::get<bool>("level.startpos_switcher.switch_on_death", false))
+                StartPosSwitcher::setupStartPos(this);
 
             // Reset camera
             if (currentStartPosIndex >= 0 && config::get<bool>("level.startpos_switcher.reset_camera", true))
